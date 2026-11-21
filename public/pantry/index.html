@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    The build sets this to the folder the app is served from,
+    e.g. `flutter build web --base-href /pantry/`.
+  -->
+  <base href="/pantry/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Pantry - a little kitchen notebook that tells you what you can cook with what you already have.">
+
+  <!-- Home-screen app on iPhone (Safari: Share > Add to Home Screen) -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Pantry">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="theme-color" content="#EFE6D8">
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.json">
+  <title>Pantry</title>
+
+  <style>
+    html, body { margin: 0; height: 100%; background: #F7F2EA; }
+    #splash {
+      position: fixed; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+      font-family: Georgia, 'Times New Roman', serif; color: #2B2620;
+    }
+    #splash img { width: 72px; height: 72px; border-radius: 18px; }
+    #splash span { font-size: 22px; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <!-- Shown for the second or two before the app has loaded. -->
+  <div id="splash">
+    <img src="icons/Icon-192.png" alt="">
+    <span>Pantry</span>
+  </div>
+
+  <script src="flutter_bootstrap.js" async></script>
+  <script>
+    // Keeps a copy of the app files so it also opens without internet.
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>
