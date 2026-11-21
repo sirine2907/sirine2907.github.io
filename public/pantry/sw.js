@@ -11,8 +11,12 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
 
+  // Ask the server every time (cheap when nothing changed), so a new version
+  // isn't hidden behind the browser's own 10-minute cache.
+  const fresh = new Request(request.url, { cache: 'no-cache', credentials: 'same-origin' });
+
   event.respondWith(
-    fetch(request)
+    fetch(fresh)
       .then((response) => {
         if (response.ok) {
           const copy = response.clone();
